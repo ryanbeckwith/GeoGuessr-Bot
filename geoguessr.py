@@ -1,3 +1,9 @@
+""" 
+GeoGuessr Bot
+Author: Sohom Sen
+Email: sohom416@hotmail.com
+"""
+
 #imports
 
 from selenium import webdriver
