@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-from dev import PATH, username, password
+from secret import PATH, username, password
 from inputs import maps, options, checkCustom, checkMap, checkOptions
 import time, sys
 
