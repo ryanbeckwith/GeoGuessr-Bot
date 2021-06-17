@@ -18,7 +18,7 @@ class GeoGuessorBot():
         self.driver = webdriver.Chrome(PATH, options = chrome_options)
         self.wait = WebDriverWait(self.driver,10)
         self.busy = False
-        pass
+        print("Bot Initialized")
 
     # Function for logging in GeoGuessrPro account.
     def login(self):
@@ -36,6 +36,7 @@ class GeoGuessorBot():
         enter = self.driver.find_element_by_xpath("//button[@type='submit']")
         enter.click()
 
+        print("GeoGuessr login successful.")
         time.sleep(1)
 
     # Function for generating GeoGuessr game links
@@ -53,6 +54,7 @@ class GeoGuessorBot():
             challenge.click()
         if map == "Invalid Map.":
             return map
+        
         
         if option in options:
             if option == "default":
@@ -147,8 +149,13 @@ class GeoGuessorBot():
 def run():
     browser = GeoGuessorBot()
     browser.login()
-    map, option = input("Enter the Map you want and rule: ").split() 
+    map,option = input("Enter the Map you want and rule: ").split() 
     geoguessrlink = browser.map_generator(map,option)
-    print(geoguessrlink)
+    if geoguessrlink == "Invalid Map." or geoguessrlink == "Invalid Option.":
+        print("Error Occured. Either the map or rule is incorrect. Please run program again.")
+        sys.exit()
+    else:
+        print("Game link generated:")
+        print(geoguessrlink)
 
 run()
