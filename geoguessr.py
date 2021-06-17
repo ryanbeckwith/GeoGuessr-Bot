@@ -46,12 +46,12 @@ class GeoGuessorBot():
             option = checkOptions(option) # checks for a valid rule option
             if option in options:
                 pass
-            if option == "Invalid Option.":
+            elif option == "Invalid Option.":
                 return option
             self.driver.get("https://www.geoguessr.com/maps/" + map +"/play")
             challenge = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//div[@class='radio-box']//div[@class='radio-box__illustration']")))
             challenge.click()
-        elif map == "Invalid Map":
+        if map == "Invalid Map.":
             return map
         
         if option in options:
