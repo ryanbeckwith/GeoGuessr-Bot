@@ -152,7 +152,7 @@ class GeoGuessorBot():
 
 
 
-def run():
+def main():
     browser = GeoGuessorBot()
     browser.login()
     map,option = input("Enter the Map you want and rule: ").split() 
@@ -163,5 +163,10 @@ def run():
     else:
         print("Game link generated:")
         print(geoguessrlink)
+        exitKey = input("Press X to close program: ")
+        if exitKey == "x":
+            sys.exit()
 
-run()
+
+if __name__ == "__main__":
+    main()
