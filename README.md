@@ -80,8 +80,6 @@ _______________________________________________________________________________
 
 ## Release Version 0.1-alpha
 
-<em> Please read the `README.md` before using the program! </em>
-
 ### Features
 * Create GeoGuessr game links with most official maps!
 * Customize GeoGuessr games with the default settings or with game rules. (Except time)
