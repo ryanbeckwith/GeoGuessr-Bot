@@ -26,7 +26,17 @@ password = "put GeoGuesser password here"
 ```
 python geoguessr.py [map] [rule]
 ```
-5. Enjoy the game!
+5. Enjoy the game! You can `Press X to close program` after you grabbed the game link from the command line. Below is a sample output of the program.
+
+```
+Output:
+Bot Initialized
+GeoGuessr login successful.
+Enter the Map you want and rule: usa nm
+Game link generated:
+https://www.geoguessr.com/challenge/wYjPeOmTi2oDmZ7K
+
+```
 
 ### Notes:
 * Maps are all hardcoded in `inputs.py`. You can add onto the `maps{}` section with any type of map you can find. See more below.
@@ -67,7 +77,7 @@ python geoguessr.py [map] [rule]
 ### Final Comments
 This bot is still very much in development. If you have any suggestions or bug reports, please let me know!
 
-#### To Do:
+#### Future Enhancements:
 * Convert to discord bot.
 * Add timer rule functionality.
 * Make customization more user friendly.
