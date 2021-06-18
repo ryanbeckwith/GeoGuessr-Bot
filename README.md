@@ -76,9 +76,22 @@ https://www.geoguessr.com/challenge/wYjPeOmTi2oDmZ7K
   
 ### Final Comments
 This bot is still very much in development. If you have any suggestions or bug reports, please let me know!
+_______________________________________________________________________________
 
-#### Future Enhancements:
-* Convert to discord bot.
-* Add timer rule functionality.
-* Make customization more user friendly.
+## Release Version 0.1-alpha
+
+<em> Please read the `README.md` before using the program! </em>
+
+### Features
+* Create GeoGuessr game links with most official maps!
+* Customize GeoGuessr games with the default settings or with game rules. (Except time)
+
+### Future Release Plans:
+* Discord API Integration
+* Add time game rule for GeoGuessr game link generation.
+* More user customization features such as adding new maps. 
+* Better error checking.
+
+
+
 
