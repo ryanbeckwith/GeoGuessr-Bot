@@ -12,16 +12,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-from secret import PATH, username, password
+from dev import PATH, username, password
 from inputs import maps, options, checkCustom, checkMap, checkOptions
 import time, sys
 
 class GeoGuessorBot():
     # Initializes Chrome driver and browser functions
     def __init__(self):
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        self.driver = webdriver.Chrome(PATH, options = chrome_options)
+        # chrome_options = Options()
+        # chrome_options.add_argument("--headless")
+        self.driver = webdriver.Chrome(PATH)
         self.wait = WebDriverWait(self.driver,10)
         self.busy = False
         print("Bot Initialized")
@@ -56,6 +56,7 @@ class GeoGuessorBot():
             elif option == "Invalid Option.":
                 return option
             self.driver.get("https://www.geoguessr.com/maps/" + map +"/play")
+            time.sleep(5)
             challenge = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//div[@class='radio-box']//div[@class='radio-box__illustration']")))
             challenge.click()
         if map == "Invalid Map.":
