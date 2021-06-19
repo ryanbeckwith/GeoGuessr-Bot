@@ -74,6 +74,10 @@ maps = {
     #custom maps
     "5e818e96b3ec17842c0bcce8",
     "59a1514f17631e74145b6f47",
+
+    #custom map aliases
+    "urban-world-norbr",
+    "diverse-world",
 }
 
 options = {
@@ -86,10 +90,10 @@ options = {
 
 
 def checkCustom(map):
-    if map == "uw-nrbr":
+    if map == "urban-world-norbr":
         map = "5e818e96b3ec17842c0bcce8"
         return map
-    if map == "dw":
+    if map == "diverse-world":
         map = "59a1514f17631e74145b6f47"
         return map
     else:
