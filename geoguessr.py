@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import *
 from dev import PATH, username, password
 from inputs import maps, options, checkCustom, checkMap, checkOptions
 import time, sys
@@ -84,10 +85,16 @@ class GeoGuessorBot():
         start.click()
         time.sleep(5)
 
+    def game_setting(self):
+        try:
+            self.driver.find_element_by_xpath("//div[@class='game-settings__detailed-settings']")
+        except NoSuchElementException:
+            return False
+        return True
+
 
     # Function for generating GeoGuessr game links
     def map_generator(self, map, option):
-        # game_settings = self.driver.find_element_by_xpath("//div[@class='game-settings__detailed-setting'")
         map = checkCustom(map) # checks for custom GeoGuessr Maps (unofficial ones have unique hash values instead of strings)
         map = checkMap(map) # checks for a valid map
         if map in maps:
@@ -97,46 +104,62 @@ class GeoGuessorBot():
             elif option == "Invalid Option.":
                 return option
             self.driver.get("https://www.geoguessr.com/maps/" + map +"/play")
-            time.sleep(2)
             challenge = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//div[@class='radio-box']//div[@class='radio-box__illustration']")))
             challenge.click()
         if map == "Invalid Map.":
             return map
-        
+
         if option in options:
             if option == "default":
                 # Generates game link with default settings.
-                GeoGuessorBot.default(self)
+                if GeoGuessorBot.game_setting(self) == True:
+                    GeoGuessorBot.default(self)
+                else:
+                    noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
+                    noDefault.click()
+                    GeoGuessorBot.default(self)
                 link = self.driver.current_url
                 return link
             elif option == "nm":
                 # Generates game link with the no move setting.
-                noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
-                noDefault.click()
-                GeoGuessorBot.no_move(self)
+                if GeoGuessorBot.game_setting(self) == True:
+                    GeoGuessorBot.no_move(self)
+                else:
+                    noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
+                    noDefault.click()
+                    GeoGuessorBot.no_move(self)
                 link = self.driver.current_url
                 return link
                 
             elif option == "nz":
                 # Generates game link with the no move zoom setting.
-                noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
-                noDefault.click()
-                GeoGuessorBot.no_zoom(self)
+                if GeoGuessorBot.game_setting(self) == True:
+                    GeoGuessorBot.no_zoom(self)
+                else:
+                    noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
+                    noDefault.click()
+                    GeoGuessorBot.no_zoom(self)
                 link = self.driver.current_url
                 return link
             elif option == "nmnz":
                 # Generates game link with the no move, no zoom setting.
-                noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
-                noDefault.click()
-                GeoGuessorBot.no_move_zoom(self)
+                if GeoGuessorBot.game_setting(self) == True:
+                    GeoGuessorBot.no_move_zoom(self)
+                else:
+                    noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
+                    noDefault.click()
+                    GeoGuessorBot.no_move_zoom(self)
                 link = self.driver.current_url
                 return link
 
             elif option == "nmnpnz":
                 # Generates game link with the no move, no pan, no zoom setting.
-                noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
-                noDefault.click()
-                GeoGuessorBot.no_move_zoom_pan(self)
+                if GeoGuessorBot.game_setting(self) == True:
+                    GeoGuessorBot.no_move_zoom_pan(self)
+                else:
+                    noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
+                    noDefault.click()
+                    GeoGuessorBot.no_move_zoom_pan(self)
                 link = self.driver.current_url
                 return link
 
