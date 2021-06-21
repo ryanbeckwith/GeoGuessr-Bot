@@ -100,16 +100,14 @@ def checkCustom(map):
         return map
 
 def checkMap(map):
-    invalid_message = "Invalid Map."
     if map not in  maps:
-        return invalid_message
+        return False
     else:
         return map
 
 def checkOptions(option):
-    invalid_message = "Invalid Option."
     if option not in  options:
-        return invalid_message
+        return False
     else:
         return option
 

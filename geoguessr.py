@@ -100,13 +100,13 @@ class GeoGuessorBot():
             option = checkOptions(option) # checks for a valid rule option
             if option in options:
                 pass
-            elif option == "Invalid Option.":
-                return option
+            elif option == False:
+                return False
             self.driver.get("https://www.geoguessr.com/maps/" + map +"/play")
             challenge = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//div[@class='radio-box']//div[@class='radio-box__illustration']")))
             challenge.click()
-        if map == "Invalid Map.":
-            return map
+        if map == False:
+            return False
 
         if option in options:
             if option == "default":
@@ -169,7 +169,7 @@ def main():
     browser.login()
     map,option = input("Enter the Map you want and rule: ").split() 
     geoguessrlink = browser.map_generator(map,option)
-    if geoguessrlink == "Invalid Map." or geoguessrlink == "Invalid Option.":
+    if geoguessrlink == False:
         print("Error Occured. Either the map or rule is incorrect. Please run program again.")
         sys.exit()
     else:
