@@ -23,8 +23,7 @@ class GeoGuessorBot():
         # chrome_options = Options()
         # chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(PATH)
-        self.wait = WebDriverWait(self.driver,10)
-        self.busy = False
+        self.wait = WebDriverWait(self.driver,20)
         print("Bot Initialized")
 
     # Function for logging in GeoGuessrPro account.
