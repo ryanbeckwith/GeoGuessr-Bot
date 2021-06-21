@@ -21,9 +21,9 @@ async def on_command_error(ctx,error):
         await ctx.send("Invalid command! Remember to type the map and rule! Please check !help for all available GeoGuessr bot commands!") """
 
 @client.command()
-async def geo(ctx, *args):
-    user_map = args[0]
-    rule = args[1]
+async def geo(ctx, arg1, arg2):
+    user_map = arg1
+    rule = arg2
 
     if user_map in maps and rule in options:
         await ctx.send("Game found! " + user_map + " " + rule)
