@@ -8,7 +8,7 @@ from discord.ext import commands
 import time
 
 
-client = commands.Bot(command_prefix = '!')
+client = commands.Bot(command_prefix = '-')
 
 @client.event
 async def on_ready():
@@ -31,7 +31,7 @@ async def geo(ctx, arg1, arg2):
         game_link = game.map_generator(user_map, rule)
         await ctx.send("Enjoy the game! " + game_link)          
     else:
-        await ctx.send("Uh oh! Game link could not be generated based on your input. Please try again! Reference !help for help!")
+        await ctx.send("Uh oh! Game link could not be generated based on your input. Reference !help for help!")
 
 @geo.error
 async def geo_error(ctx, error):
