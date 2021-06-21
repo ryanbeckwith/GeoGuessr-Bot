@@ -1,5 +1,6 @@
 
 #imports
+from discord.ext.commands.errors import MissingRequiredArgument
 from geoguessr import *
 from dev import *
 import discord
@@ -31,6 +32,11 @@ async def geo(ctx, arg1, arg2):
         await ctx.send("Enjoy the game! " + game_link)          
     else:
         await ctx.send("Uh oh! Game link could not be generated based on your input. Please try again! Reference !help for help!")
+
+@geo.error
+async def geo_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("You forgot to add a required option! Remember the format is !geo [map] [game rule]")
 
 
 game = GeoGuessorBot()
