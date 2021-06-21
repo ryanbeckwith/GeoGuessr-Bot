@@ -90,7 +90,7 @@ options = {
 
 
 def checkCustom(map):
-    if map == "urban-world-norbr":
+    if map == "urban-world-nobrr":
         map = "5e818e96b3ec17842c0bcce8"
         return map
     if map == "diverse-world":
