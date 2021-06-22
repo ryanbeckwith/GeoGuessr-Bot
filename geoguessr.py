@@ -13,7 +13,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import *
-from dev import PATH
 from inputs import maps, options, checkCustom, checkMap, checkOptions
 import time, sys
 import os

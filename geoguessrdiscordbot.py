@@ -4,7 +4,6 @@ import asyncio
 from discord import embeds
 from discord.ext.commands.errors import *
 from geoguessr import *
-from dev import PATH
 from inputs import africa, asia, na, sa, europe, oceania, misc, custom, definitions
 import discord
 from discord.ext import commands
