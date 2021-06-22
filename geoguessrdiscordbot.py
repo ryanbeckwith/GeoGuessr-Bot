@@ -11,20 +11,15 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
 
 
+
 client = commands.Bot(command_prefix = '-')
+client.remove_command('help')
+
 
 @client.event
 async def on_ready():
     print('Discord Bot Initiated')
 
-@client.event
-async def on_command_error(ctx,error):
-    if isinstance(error, commands.CommandNotFound):
-        await ctx.send("Invalid command! Please check !help for all available GeoGuessr bot commands!")
-        ctx.command.reset_cooldown(ctx)
-    if isinstance(error, CommandOnCooldown):
-        await ctx.send(f"Slow down! Use the bot in {error.retry_after:,.2f} seconds!")
-        
 @client.command(aliases = ["maps"])
 async def mapsinfo(ctx):
     page_count = 0
@@ -180,23 +175,32 @@ async def credits(ctx):
     about.set_thumbnail(url = "https://cdn.discordapp.com/avatars/239941463717314560/a_5199b98813b8a9c90327c033b3440f9e.gif?size=1024")
     await ctx.send(embed = about)
 
+@client.command(aliases = ["g", "game"])
 @commands.cooldown(1,30, BucketType.user)
 async def geo(ctx, arg1, arg2):
-    user_map = arg1
-    rule = arg2
+    user_map = arg1.lower()
+    rule = arg2.lower()
 
     if user_map in maps and rule in options:
-        await ctx.send("Game found! " + user_map + " " + rule)
+        await ctx.send("Link is being generated for the map: " + user_map + " with the game rule: " + rule)
         game_link = game.map_generator(user_map, rule)
         await ctx.send("Enjoy the game! " + game_link)          
     else:
-        await ctx.send("Uh oh! Game link could not be generated based on your input. Reference !help for help!")
+        await ctx.send("Uh oh! Game link could not be generated based on your input. Reference -help for help!")
         ctx.command.reset_cooldown(ctx)
+
+@client.event
+async def on_command_error(ctx,error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("Invalid command! Please check -help for all available GeoGuessr bot commands!")
+
+    if isinstance(error, CommandOnCooldown):
+        await ctx.send(f"Slow down! Use the bot in {error.retry_after:,.2f} seconds!")
 
 @geo.error
 async def geo_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("You forgot to add a required option! Remember the format is !geo [map] [game rule]")
+        await ctx.send("You forgot to add a required option! Remember the format is -geo [map] [game rule]")
         ctx.command.reset_cooldown(ctx)
 
 
