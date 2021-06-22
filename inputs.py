@@ -9,7 +9,6 @@ maps = {
     "nigeria",
     "senegal",
     "south-africa",
-    "south-korea",
     "sri-lanka",
     "tunisia",
     "uganda",
@@ -121,7 +120,6 @@ maps = {
     #custom map aliases
     "urban-world-nobrr",
     "diverse-world",
-
 
 }
 
