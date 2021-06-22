@@ -1,11 +1,10 @@
 
 #imports
-from discord.ext.commands.errors import MissingRequiredArgument
+from discord.ext.commands.errors import *
 from geoguessr import *
 from dev import *
 import discord
 from discord.ext import commands
-import time
 from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
 
 
@@ -19,8 +18,6 @@ async def on_ready():
 async def on_command_error(ctx,error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("Invalid command! Please check !help for all available GeoGuessr bot commands!")
-    if isinstance(error, commands.CommandInvokeError):
-        await ctx.send("Invalid command! Remember to type the map and rule! Please check !help for all available GeoGuessr bot commands!") """
         ctx.command.reset_cooldown(ctx)
     if isinstance(error, CommandOnCooldown):
         await ctx.send(f"Slow down! Use the bot in {error.retry_after:,.2f} seconds!")
