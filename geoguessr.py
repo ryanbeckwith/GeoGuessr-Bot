@@ -112,10 +112,10 @@ class GeoGuessorBot():
             if option == "default":
                 # Generates game link with default settings.
                 if GeoGuessorBot.game_setting(self) == True:
+                    defaultBtn = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
+                    defaultBtn.click()
                     GeoGuessorBot.default(self)
                 else:
-                    noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
-                    noDefault.click()
                     GeoGuessorBot.default(self)
                 link = self.driver.current_url
                 return link
