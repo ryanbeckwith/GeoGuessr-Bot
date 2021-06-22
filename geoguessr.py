@@ -29,7 +29,6 @@ class GeoGuessorBot():
         # Initializes Chrome driver and browser functions
         chrome_options = Options()
         chrome_options.add_argument("--headless")
-        chrome_options.add_argument("window-size=1400,900")
         self.driver = webdriver.Chrome(CHROMEDRIVER_PATH, options = chrome_options)
         self.wait = WebDriverWait(self.driver,60)
         print("Bot Initialized")
