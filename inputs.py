@@ -76,7 +76,7 @@ maps = {
     "59a1514f17631e74145b6f47",
 
     #custom map aliases
-    "urban-world-norbr",
+    "urban-world-nobrr",
     "diverse-world",
 }
 
