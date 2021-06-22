@@ -193,7 +193,7 @@ async def geo(ctx, arg1, arg2):
         await ctx.send("Uh oh! Game link could not be generated based on your input. Reference -help for help!")
         ctx.command.reset_cooldown(ctx)
 
-""" #Error Checking
+#Error Checking
 @client.event
 async def on_command_error(ctx,error):
     if isinstance(error, commands.CommandNotFound):
@@ -207,7 +207,7 @@ async def geo_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("You forgot to add a required option! Remember the format is -geo [map] [game rule]")
         ctx.command.reset_cooldown(ctx)
- """
+
 
 
 game = GeoGuessorBot()
