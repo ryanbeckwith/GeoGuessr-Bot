@@ -1,22 +1,20 @@
 
 #imports
 import asyncio
-from discord import embeds
-from discord.ext.commands.errors import *
+import os
+import discord
+from os import environ
 from geoguessr import *
 from inputs import africa, asia, na, sa, europe, oceania, misc, custom, definitions
-import discord
+from discord import embeds
+from discord.ext.commands.errors import *
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
-import os
-from os import environ
-
 
 # Variables for setting up the bot.
 TOKEN = environ['TOKEN']
 client = commands.Bot(command_prefix = '-')
 client.remove_command('help')
-
 
 @client.event
 async def on_ready():
@@ -38,7 +36,6 @@ async def mapsinfo(ctx):
     oceania_list = (', '.join(sorted(filter(lambda i: i not in remove_char, oceania)))) 
     misc_list = (', '.join(sorted(filter(lambda i: i not in remove_char, misc))))
     custom_list = (', '.join(sorted(filter(lambda i: i not in remove_char, custom))))
-
 
     page1 = discord.Embed(
         color = discord.Color.red(),
@@ -196,7 +193,6 @@ async def geo(ctx, arg1, arg2):
         await ctx.send("Uh oh! Game link could not be generated based on your input. Reference -help for help!")
         ctx.command.reset_cooldown(ctx)
 
-
 #Error Checking
 @client.event
 async def on_command_error(ctx,error):
@@ -215,7 +211,6 @@ async def geo_error(ctx, error):
 
 
 game = GeoGuessorBot()
-print("Game Installed")
 game.login()
+print("Game Installed")
 client.run(TOKEN)
-
