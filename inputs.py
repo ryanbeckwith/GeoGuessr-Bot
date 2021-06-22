@@ -133,6 +133,138 @@ options = {
     "nmnpnz",
 }
 
+africa = {
+    "botswana",
+    "eswatini",
+    "ghana",
+    "kenya",
+    "lesotho",
+    "madagascar",
+    "nigeria",
+    "senegal",
+    "south-africa",
+    "sri-lanka",
+    "tunisia",
+    "uganda",
+    "vietnam",
+}
+
+asia = {
+    "bangladesh",
+    "bhutan",
+    "cambodia",
+    "india",
+    "indonesia",
+    "israel",
+    "japan",
+    "jordan",
+    "kyrgyzstan",
+    "laos",
+    "malaysia",
+    "mongolia",
+    "philippines",
+    "russia",
+    "singapore",
+    "south-korea",
+    "taiwan",
+    "thailand",
+}
+
+europe = {
+    "albania",
+    "andorra",
+    "belgium",
+    "bulgaria",
+    "croatia",
+    "czech-republic",
+    "denmark",
+    "estonia",
+    "faroe-islands",
+    "finland",
+    "france",
+    "germany",
+    "greece",
+    "hungary",
+    "iceland",
+    "ireland",
+    "italy",
+    "latvia",
+    "lithuania",
+    "london",
+    "luxembourg",
+    "malta",
+    "monaco",
+    "montenegro",
+    "netherlands",
+    "north-macedonia",
+    "norway",
+    "paris",
+    "poland",
+    "portugal",
+    "romania",
+    "san-marino",
+    "serbia",
+    "slovakia",
+    "slovenia",
+    "spain",
+    "sweden",
+    "switzerland",
+    "turkey",
+    "uk",
+    "ukraine",
+}
+
+na = {
+    "canada",
+    "greenland",
+    "guatemala",
+    "mexico",
+    "newyork",
+    "philadelphia",
+    "san-francisco",
+    "usa",
+}
+
+sa ={
+    "argentina",
+    "bolivia",
+    "brazil",
+    "chile",
+    "colombia",
+    "ecuador",
+    "peru",
+    "uruguay",
+}
+
+
+oceania = {
+    "australia",
+    "new-zealand",
+}
+
+misc = {
+    "american-samoa",
+    "christmas-island",
+    "curacao",
+    "dominican-republic",
+    "european-union",
+    "famous-places",
+    "gibraltar",
+    "isle-of-man",
+    "jersey",
+    "northern-mariana-islands",
+    "puerto-rico",
+    "us-virgin-islands",
+    "world",
+}
+
+custom = { 
+    "urban-world-nobrr",
+    "diverse-world",
+}
+
+
+# Map and Option check functions
 
 def checkCustom(map):
     if map == "urban-world-nobrr":
