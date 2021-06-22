@@ -30,7 +30,7 @@ class GeoGuessorBot():
         # Initializes Chrome driver and browser functions
         chrome_options = Options()
         chrome_options.add_argument("--headless")
-        self.driver = webdriver.Chrome(PATH, options = chrome_options)
+        self.driver = webdriver.Chrome(CHROMEDRIVER_PATH, options = chrome_options)
         self.wait = WebDriverWait(self.driver,20)
         print("Bot Initialized")
     
