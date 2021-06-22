@@ -103,9 +103,6 @@ maps = {
     "peru",
     "uruguay",
 
-    #custom maps
-    "5e818e96b3ec17842c0bcce8",
-    "59a1514f17631e74145b6f47",
     #other
     "american-samoa",
     "christmas-island",
