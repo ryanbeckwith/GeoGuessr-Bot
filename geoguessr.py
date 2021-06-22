@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import *
 from inputs import maps, options, checkCustom, checkMap, checkOptions
-from dev import *
+#from dev import *
 import time, sys
 import os
 from os import environ

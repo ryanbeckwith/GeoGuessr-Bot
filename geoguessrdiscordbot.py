@@ -6,7 +6,7 @@ import discord
 from os import environ
 from geoguessr import *
 from inputs import africa, asia, na, sa, europe, oceania, misc, custom, definitions
-from dev import token
+#from dev import token
 from discord import embeds
 from discord.ext.commands.errors import *
 from discord.ext import commands
