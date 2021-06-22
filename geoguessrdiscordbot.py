@@ -12,16 +12,19 @@ from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
 
 
 
+# Variables for setting up the bot.
 client = commands.Bot(command_prefix = '-')
 client.remove_command('help')
 
 
 @client.event
 async def on_ready():
+    # Tells user that the bot is ready to be used
     print('Discord Bot Initiated')
 
 @client.command(aliases = ["maps"])
 async def mapsinfo(ctx):
+    # A help command that tells the user of the maps available for the bot to use.
     page_count = 0
     buttons = [u"\u23EA", u"\u2B05", u"\u27A1", u"\u23E9"]
     remove_char = ["{", "}", "'"]
@@ -131,6 +134,7 @@ async def mapsinfo(ctx):
 
 @client.command(aliases = ["options", "game-rules"])
 async def optioninfo(ctx):
+    # a help command that tells the user of all the options the bot can use.
     remove_char = ["{", "}", "'"]
     options_list = (', '.join(sorted(filter(lambda i: i not in remove_char, options))))
     definitions_list = ('\n'.join(sorted(filter(lambda i: i not in remove_char, definitions))))
@@ -150,6 +154,7 @@ async def optioninfo(ctx):
 
 @client.command(aliases = ["help"])
 async def help_command(ctx):
+    # a help command that gives instructions on how to use the bot on discord.
     help_page = discord.Embed(
         color = discord.Color.red(),
         title = "Help Page",
@@ -166,7 +171,7 @@ async def help_command(ctx):
 
 @client.command(aliases = ["author"])
 async def credits(ctx):
-
+    # a command that tells the user of who made this bot.
     about = discord.Embed(
         color = discord.Color.red(),
         title = "Credits:",
@@ -178,6 +183,7 @@ async def credits(ctx):
 @client.command(aliases = ["g", "game"])
 @commands.cooldown(1,30, BucketType.user)
 async def geo(ctx, arg1, arg2):
+    # this command is the call for using the GeoGuessr.py functions. It takes in two arugments from the user in discord: map and rule
     user_map = arg1.lower()
     rule = arg2.lower()
 
@@ -189,6 +195,8 @@ async def geo(ctx, arg1, arg2):
         await ctx.send("Uh oh! Game link could not be generated based on your input. Reference -help for help!")
         ctx.command.reset_cooldown(ctx)
 
+
+#Error Checking
 @client.event
 async def on_command_error(ctx,error):
     if isinstance(error, commands.CommandNotFound):
@@ -204,7 +212,9 @@ async def geo_error(ctx, error):
         ctx.command.reset_cooldown(ctx)
 
 
+
 game = GeoGuessorBot()
 print("Game Installed")
 game.login()
 client.run(token)
+
