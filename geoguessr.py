@@ -14,7 +14,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import *
 from inputs import maps, options, checkCustom, checkMap, checkOptions
-from dev import *
 import time, sys
 import os
 from os import environ
@@ -30,20 +29,21 @@ class GeoGuessorBot():
         # Initializes Chrome driver and browser functions
         chrome_options = Options()
         chrome_options.add_argument("--headless")
-        self.driver = webdriver.Chrome(PATH, options = chrome_options)
-        self.wait = WebDriverWait(self.driver,20)
+        chrome_options.add_argument("window-size=1400,900")
+        self.driver = webdriver.Chrome(CHROMEDRIVER_PATH, options = chrome_options)
+        self.wait = WebDriverWait(self.driver,60)
         print("Bot Initialized")
     
     def login(self):
         # Function for logging in GeoGuessrPro account.
         self.driver.get("https://www.geoguessr.com/")
-        loginButton = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#__next > div > div > header > div.header__right > div > div.header__item.header__item--no-margin.header__item--sign-in > a")))
+        loginButton = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//a[normalize-space()='Log in']")))
         loginButton.click()
-        emailField = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#__next > div > main > div > div > div > div > div > form > div > div:nth-child(1) > div.form-field__field > input")))
+        emailField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='email']")))
         emailField.send_keys(USERNAME)
-        passField = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#__next > div > main > div > div > div > div > div > form > div > div:nth-child(2) > div.form-field__field > input")))
+        passField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='password']")))
         passField.send_keys(PASSWORD)
-        enter = self.driver.find_element_by_css_selector("#__next > div > main > div > div > div > div > div > form > div > section > section:nth-child(2) > div > div > button")
+        enter = self.driver.find_element_by_xpath("//button[@type='submit']")
         enter.click()
 
         print("GeoGuessr login successful.")
