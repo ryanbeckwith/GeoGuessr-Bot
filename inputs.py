@@ -1,17 +1,31 @@
 maps = {
     # Africa
     "botswana",
+    "eswatini",
+    "ghana",
     "kenya",
     "lesotho",
+    "madagascar",
+    "nigeria",
     "senegal",
     "south-africa",
+    "south-korea",
+    "sri-lanka",
+    "tunisia",
+    "uganda",
+    "vietnam",
+
     # Asia
     "bangladesh",
+    "bhutan",
     "cambodia",
     "india",
     "indonesia",
     "israel",
     "japan",
+    "jordan",
+    "kyrgyzstan",
+    "laos",
     "malaysia",
     "mongolia",
     "philippines",
@@ -20,13 +34,18 @@ maps = {
     "south-korea",
     "taiwan",
     "thailand",
+
+
     # Europe
+    "albania",
+    "andorra",
     "belgium",
     "bulgaria",
     "croatia",
     "czech-republic",
     "denmark",
     "estonia",
+    "faroe-islands",
     "finland",
     "france",
     "germany",
@@ -37,12 +56,19 @@ maps = {
     "italy",
     "latvia",
     "lithuania",
+    "london",
     "luxembourg",
+    "malta",
+    "monaco",
+    "montenegro",
     "netherlands",
+    "north-macedonia",
     "norway",
+    "paris",
     "poland",
     "portugal",
     "romania",
+    "san-marino",
     "serbia",
     "slovakia",
     "slovenia",
@@ -50,17 +76,23 @@ maps = {
     "sweden",
     "switzerland",
     "turkey",
-    "ukraine",
     "uk",
+    "ukraine",
+
     # North America
     "canada",
     "greenland",
     "guatemala",
     "mexico",
+    "newyork",
+    "philadelphia",
+    "san-francisco",
     "usa",
+
     # Oceania
     "australia",
     "new-zealand",
+
     # South America
     "argentina",
     "bolivia",
@@ -74,10 +106,26 @@ maps = {
     #custom maps
     "5e818e96b3ec17842c0bcce8",
     "59a1514f17631e74145b6f47",
+    #other
+    "american-samoa",
+    "christmas-island",
+    "curacao",
+    "dominican-republic",
+    "european-union",
+    "famous-places",
+    "gibraltar",
+    "isle-of-man",
+    "jersey",
+    "northern-mariana-islands",
+    "puerto-rico",
+    "us-virgin-islands",
+    "world",
 
     #custom map aliases
     "urban-world-nobrr",
     "diverse-world",
+
+
 }
 
 options = {
