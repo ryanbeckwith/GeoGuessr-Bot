@@ -91,21 +91,20 @@ class GeoGuessorBot():
             return False
         return True
 
-
     # Function for generating GeoGuessr game links
     def map_generator(self, map, option):
-        map = checkCustom(map) # checks for custom GeoGuessr Maps (unofficial ones have unique hash values instead of strings)
-        map = checkMap(map) # checks for a valid map
-        if map in maps:
+        map_checked = checkMap(map) # checks for a valid map
+        if map_checked in maps:
+            map_final = checkCustom(map) # checks for custom GeoGuessr Maps (unofficial ones have unique hash values instead of strings)
             option = checkOptions(option) # checks for a valid rule option
             if option in options:
                 pass
             elif option == False:
                 return False
-            self.driver.get("https://www.geoguessr.com/maps/" + map +"/play")
+            self.driver.get("https://www.geoguessr.com/maps/" + map_final + "/play")
             challenge = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//div[@class='radio-box']//div[@class='radio-box__illustration']")))
             challenge.click()
-        if map == False:
+        if map_checked == False:
             return False
 
         if option in options:
