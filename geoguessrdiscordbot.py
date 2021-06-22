@@ -4,15 +4,17 @@ import asyncio
 from discord import embeds
 from discord.ext.commands.errors import *
 from geoguessr import *
-from dev import *
+from dev import PATH
 from inputs import africa, asia, na, sa, europe, oceania, misc, custom, definitions
 import discord
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
-
+import os
+from os import environ
 
 
 # Variables for setting up the bot.
+TOKEN = environ['TOKEN']
 client = commands.Bot(command_prefix = '-')
 client.remove_command('help')
 
@@ -216,5 +218,5 @@ async def geo_error(ctx, error):
 game = GeoGuessorBot()
 print("Game Installed")
 game.login()
-client.run(token)
+client.run(TOKEN)
 

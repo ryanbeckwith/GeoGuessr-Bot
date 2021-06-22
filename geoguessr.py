@@ -13,16 +13,25 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import *
-from dev import PATH, username, password
+from dev import PATH
 from inputs import maps, options, checkCustom, checkMap, checkOptions
 import time, sys
+import os
+from os import environ
+
+GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+
+USERNAME = environ['USERNAME']
+PASSWORD = environ['PASSWORD']
 
 class GeoGuessorBot():
     # Initializes Chrome driver and browser functions
     def __init__(self):
-        # chrome_options = Options()
-        # chrome_options.add_argument("--headless")
-        self.driver = webdriver.Chrome(PATH)
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+        self.driver = webdriver.Chrome(CHROMEDRIVER_PATH, options = chrome_options)
         self.wait = WebDriverWait(self.driver,20)
         print("Bot Initialized")
 
@@ -32,9 +41,9 @@ class GeoGuessorBot():
         loginButton = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//a[normalize-space()='Log in']")))
         loginButton.click()
         emailField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='email']")))
-        emailField.send_keys(username)
+        emailField.send_keys(USERNAME)
         passField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='password']")))
-        passField.send_keys(password)
+        passField.send_keys(PASSWORD)
         enter = self.driver.find_element_by_xpath("//button[@type='submit']")
         enter.click()
 
