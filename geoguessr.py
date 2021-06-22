@@ -19,9 +19,8 @@ import time, sys
 import os
 from os import environ
 
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-
+GOOGLE_CHROME_PATH = environ['GOOGLE_CHROME_PATH']
+CHROMEDRIVER_PATH = environ['CHROMEDRIVER_PATH']
 USERNAME = environ['USERNAME']
 PASSWORD = environ['PASSWORD']
 
