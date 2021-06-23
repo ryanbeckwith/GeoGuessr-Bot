@@ -189,7 +189,7 @@ async def geo(ctx, arg1, arg2):
         await ctx.send("Link is being generated for the map: " + user_map + " with the game rule: " + rule)
         print("Game sent to generate")
         game_link = game.map_generator(user_map, rule)
-        await ctx.send("Enjoy the game! Map: " + user_map + " Game Rule: " + rule + "\n" + game_link)    
+        await ctx.send("Enjoy the game! Map: " + user_map + " ,game rule: " + rule + "\n" + game_link)    
         print("Game link sent")     
 
         if game_link == False:
