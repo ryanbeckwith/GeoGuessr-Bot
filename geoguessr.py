@@ -153,7 +153,7 @@ class GeoGuessorBot():
                     GeoGuessorBot.no_zoom(self)
                 link = self.driver.current_url
                 return link
-            elif option == "nmnz":
+            elif option == "nmz":
                 # Generates game link with the no move, no zoom setting.
                 if GeoGuessorBot.game_setting(self) == True:
                     GeoGuessorBot.no_move_zoom(self)
@@ -164,7 +164,7 @@ class GeoGuessorBot():
                 link = self.driver.current_url
                 return link
 
-            elif option == "nmnpnz":
+            elif option == "nmpz":
                 # Generates game link with the no move, no pan, no zoom setting.
                 if GeoGuessorBot.game_setting(self) == True:
                     GeoGuessorBot.no_move_zoom_pan(self)
