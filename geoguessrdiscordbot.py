@@ -193,7 +193,7 @@ async def geo(ctx, arg1, arg2):
         ctx.command.reset_cooldown(ctx)
 
 #Error Checking
-@client.event
+""" @client.event
 async def on_command_error(ctx,error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("Invalid command! Please check -help for all available GeoGuessr bot commands!")
@@ -205,7 +205,7 @@ async def on_command_error(ctx,error):
 async def geo_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("You forgot to add a required option! Remember the format is -geo [map] [game rule]")
-        ctx.command.reset_cooldown(ctx)
+        ctx.command.reset_cooldown(ctx) """
 
 
 
