@@ -104,8 +104,7 @@ async def mapsinfo(ctx):
         try: 
             reaction, user = await client.wait_for("reaction_add", check = lambda reaction, user: user == ctx.author and reaction.emoji in buttons, timeout = 60.0)
         except asyncio.TimeoutError:
-            print("Reaction did time out. Caution.")
-            await message.remove_reaction(button, ctx.author)
+            pass
 
         else:
             prev_page = page_count
