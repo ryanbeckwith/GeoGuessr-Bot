@@ -178,7 +178,7 @@ async def credits(ctx):
     await ctx.send(embed = about)
 
 @client.command(aliases = ["g", "game"])
-@commands.cooldown(1,30, BucketType.server)
+@commands.cooldown(1,30, BucketType.guild)
 async def geo(ctx, arg1, arg2):
     # this command is the call for using the GeoGuessr.py functions. It takes in two arugments from the user in discord: map and rule
     user_map = arg1.lower()
