@@ -105,8 +105,7 @@ async def mapsinfo(ctx):
         try: 
             reaction, user = await client.wait_for("reaction_add", check = lambda reaction, user: user == ctx.author and reaction.emoji in buttons, timeout = 60.0)
         except asyncio.TimeoutError:
-            print("Reaction did time out. Caution.")
-            await message.remove_reaction(button, ctx.author)
+            pass
 
         else:
             prev_page = page_count
@@ -180,7 +179,7 @@ async def credits(ctx):
     await ctx.send(embed = about)
 
 @client.command(aliases = ["g", "game"])
-@commands.cooldown(1,30, BucketType.user)
+@commands.cooldown(1,30, BucketType.guild)
 async def geo(ctx, arg1, arg2):
     # this command is the call for using the GeoGuessr.py functions. It takes in two arugments from the user in discord: map and rule
     user_map = arg1.lower()

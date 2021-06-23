@@ -28,11 +28,10 @@ PASSWORD = environ['PASSWORD'] """
 class GeoGuessorBot():
     def __init__(self):
         # Initializes Chrome driver and browser functions
-        #chrome_options = Options()
-        #chrome_options.add_argument("--headless")
-        #chrome_options.add_argument("--disable-gpu")
-        #, options = chrome_options
-        self.driver = webdriver.Chrome(PATH)
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--no-sandbox')      
+        self.driver = webdriver.Chrome(CHROMEDRIVER_PATH, options = chrome_options)
         self.wait = WebDriverWait(self.driver,20)
         print("Bot Initialized")
     
@@ -156,7 +155,7 @@ class GeoGuessorBot():
                     GeoGuessorBot.no_zoom(self)
                 link = self.driver.current_url
                 return link
-            elif option == "nmnz":
+            elif option == "nmz":
                 # Generates game link with the no move, no zoom setting.
                 if GeoGuessorBot.game_setting(self) == True:
                     GeoGuessorBot.no_move_zoom(self)
@@ -167,7 +166,7 @@ class GeoGuessorBot():
                 link = self.driver.current_url
                 return link
 
-            elif option == "nmnpnz":
+            elif option == "nmpz":
                 # Generates game link with the no move, no pan, no zoom setting.
                 if GeoGuessorBot.game_setting(self) == True:
                     GeoGuessorBot.no_move_zoom_pan(self)

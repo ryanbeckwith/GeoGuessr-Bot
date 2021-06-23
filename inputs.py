@@ -127,8 +127,8 @@ options = {
     "default",
     "nm",
     "nz",
-    "nmnz",
-    "nmnpnz",
+    "nmz",
+    "nmpz",
 }
 
 africa = {
@@ -265,8 +265,8 @@ definitions = {
     "default = Play with default settings",
     "nm = Play with the no move setting on.",
     "nz = Play with the no zoom setting on.",
-    "nmnz = Play with the no move, no zoom setting on.",
-    "nmnpnz = Play with the no move, no pan, no zoom setting on.",
+    "nmz = Play with the no move, no zoom setting on.",
+    "nmpz = Play with the no move, no pan, no zoom setting on.",
 }
 
 # Map and Option check functions
