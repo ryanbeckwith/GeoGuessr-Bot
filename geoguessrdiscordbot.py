@@ -160,7 +160,7 @@ async def help_command(ctx):
 
     help_page.add_field(name = "-geo", value = "The -geo command is how you can start a GeoGuessr game.\n Alternatively you can use -g or -game! \n -geo [map] [rule]" , inline = True)
     help_page.add_field(name = "Example of using the -geo command", value = "-geo usa nm \n -g usa nm \n -game usa nm", inline = True)
-    help_page.add_field(name = "Note:" , value = "You must put in a map and game rule! See -maps and -options for more details.", inline = True)
+    help_page.add_field(name = "Note:" , value = "You must put in a map and game rule! See -maps and -options for more details. \n There is a 60 second cooldown for this command.", inline = True)
     help_page.add_field(name = "-maps", value = "The -maps command will list all the available maps to play!", inline = False)
     help_page.add_field(name = "-options", value = "The -options command will list all the game rule options you can use!", inline= False)
     help_page.add_field(name = "-author", value = "Learn about who made this bot :)", inline= False)
@@ -175,10 +175,11 @@ async def credits(ctx):
         description = "This bot was made by #senn0526" 
     )
     about.set_thumbnail(url = "https://cdn.discordapp.com/avatars/239941463717314560/a_5199b98813b8a9c90327c033b3440f9e.gif?size=1024")
+    about.add_field(name = "Cash App", value = "$SohomSen", inline = False)
     await ctx.send(embed = about)
 
 @client.command(aliases = ["g", "game"])
-@commands.cooldown(1,30, BucketType.user)
+@commands.cooldown(1,60, BucketType.guild)
 async def geo(ctx, arg1, arg2):
     # this command is the call for using the GeoGuessr.py functions. It takes in two arugments from the user in discord: map and rule
     user_map = arg1.lower()
@@ -186,26 +187,39 @@ async def geo(ctx, arg1, arg2):
 
     if user_map in maps and rule in options:
         await ctx.send("Link is being generated for the map: " + user_map + " with the game rule: " + rule)
+        print("Game sent to generate")
         game_link = game.map_generator(user_map, rule)
-        await ctx.send("Enjoy the game! " + game_link)          
+        await ctx.send("Enjoy the game! Map: " + user_map + " Game Rule: " + rule + "\n" + game_link)    
+        print("Game link sent")     
+
+        if game_link == False:
+            await ctx.send("Something went wrong, please try again.") 
     else:
         await ctx.send("Uh oh! Game link could not be generated based on your input. Reference -help for help!")
         ctx.command.reset_cooldown(ctx)
+        print("Input was wrong")
 
 #Error Checking
 @client.event
 async def on_command_error(ctx,error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("Invalid command! Please check -help for all available GeoGuessr bot commands!")
+        print("Invalid command was sent")
 
     if isinstance(error, CommandOnCooldown):
-        await ctx.send(f"Slow down! Use the bot in {error.retry_after:,.2f} seconds!")
+        await ctx.send(f"Slow down {ctx.message.author.display_name}! Bot is on cooldown. Use the bot in {error.retry_after:,.2f} seconds!")
+    
+    else: 
+        print(error)
+    
 
 @geo.error
 async def geo_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("You forgot to add a required option! Remember the format is -geo [map] [game rule]")
         ctx.command.reset_cooldown(ctx)
+    else: 
+        print(error)
 
 
 
