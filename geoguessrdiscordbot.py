@@ -10,10 +10,9 @@ from discord import embeds
 from discord.ext.commands.errors import *
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
-from dev import *
 
 # Variables for setting up the bot.
-#TOKEN = environ['TOKEN']
+TOKEN = environ['TOKEN']
 client = commands.Bot(command_prefix = '-')
 client.remove_command('help')
 
@@ -213,4 +212,4 @@ async def geo_error(ctx, error):
 game = GeoGuessorBot()
 game.login()
 print("Game Installed")
-client.run(token)
+client.run(TOKEN)

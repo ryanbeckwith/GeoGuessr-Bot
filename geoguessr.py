@@ -14,16 +14,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import *
 from inputs import maps, options, checkCustom, checkMap, checkOptions
-from dev import *
 import time, sys
 import os
 from os import environ
 
 # Environment varible declarations
-""" GOOGLE_CHROME_PATH = environ['GOOGLE_CHROME_PATH']
+GOOGLE_CHROME_PATH = environ['GOOGLE_CHROME_PATH']
 CHROMEDRIVER_PATH = environ['CHROMEDRIVER_PATH']
 USERNAME = environ['USERNAME']
-PASSWORD = environ['PASSWORD'] """
+PASSWORD = environ['PASSWORD']
 
 class GeoGuessorBot():
     def __init__(self):
@@ -41,9 +40,9 @@ class GeoGuessorBot():
         loginButton = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//a[normalize-space()='Log in']")))
         loginButton.click()
         emailField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='email']")))
-        emailField.send_keys(username)
+        emailField.send_keys(USERNAME)
         passField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='password']")))
-        passField.send_keys(password)
+        passField.send_keys(PASSWORD)
         enter = self.driver.find_element_by_xpath("//button[@type='submit']")
         enter.click()
 
