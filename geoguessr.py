@@ -30,6 +30,7 @@ class GeoGuessorBot():
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')      
+        chrome_options.add_argument('--disable-dev-shm-usage')
         self.driver = webdriver.Chrome(CHROMEDRIVER_PATH, options = chrome_options)
         self.wait = WebDriverWait(self.driver,20)
         print("Bot Initialized")

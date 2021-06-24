@@ -15,6 +15,7 @@ from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
 TOKEN = environ['TOKEN']
 client = commands.Bot(command_prefix = '-')
 client.remove_command('help')
+game = GeoGuessorBot()
 
 @client.event
 async def on_ready():
@@ -27,6 +28,7 @@ async def mapsinfo(ctx):
     page_count = 0
     buttons = [u"\u23EA", u"\u2B05", u"\u27A1", u"\u23E9"]
     remove_char = ["{", "}", "'"]
+    author = ctx.author
     
     africa_list = (', '.join(sorted(filter(lambda i: i not in remove_char, africa))))
     asia_list = (', '.join(sorted(filter(lambda i: i not in remove_char, asia))))
@@ -38,63 +40,72 @@ async def mapsinfo(ctx):
     custom_list = (', '.join(sorted(filter(lambda i: i not in remove_char, custom))))
 
     page1 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
         title = "Maps",
         description = "Flip through all the pages to find all official GeoGuessr maps. Custom Maps are on the last page."
 
     )
     page2 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
     )
     page3 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
     )
     page4 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
     )
     page5 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
     )
     page6 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
     )
     page7 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
     )
     page8 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
     )
     page9 = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
     )
     page1.add_field(name = "Note:" , value = "You can use any of these maps listed in this message with the -geo command. Use -help to learn the correct syntax.")
+    page1.set_footer(icon_url= author.avatar_url, text= "Page 1")
     
     page2.add_field(name = "Africa Maps", value = africa_list, inline = True)
     page2.add_field(name = "Example of playing an Africa Map", value = "-geo madagascar nm", inline = True)
+    page2.set_footer(icon_url= author.avatar_url, text= "Page 2")
     
     page3.add_field(name = "Asia Maps", value = asia_list, inline = True)
     page3.add_field(name = "Example of playing an Asia Map", value = "-geo india nm", inline = True)
+    page3.set_footer(icon_url= author.avatar_url, text= "Page 3")
     
     page4.add_field(name = "Europe Maps", value = europe_list, inline = True)
     page4.add_field(name = "Example of playing an Europe Map", value = "-geo uk nm", inline = True)
+    page4.set_footer(icon_url= author.avatar_url, text= "Page 4")
     
     page5.add_field(name = "Miscellaneous Maps", value = misc_list, inline = True)
     page5.add_field(name = "Example of playing a Miscellaneous Map", value = "-geo famous-places nm", inline = True)
+    page5.set_footer(icon_url= author.avatar_url, text= "Page 5")
     
     page6.add_field(name = "North America Maps", value = na_list, inline = True)
     page6.add_field(name = "Example of playing a North America Map", value = "-geo usa nm", inline = True)
+    page6.set_footer(icon_url= author.avatar_url, text= "Page 6")
 
     page7.add_field(name = "South America Maps", value = sa_list, inline = True)
     page7.add_field(name = "Example of playing a South America Map", value = "-geo peru nm", inline = True)
+    page7.set_footer(icon_url= author.avatar_url, text= "Page 7")
 
     page8.add_field(name = "Oceania Maps", value = oceania_list, inline = True)
     page8.add_field(name = "Example of playing an Oceania Map", value = "-geo australia nm", inline = True)
+    page8.set_footer(icon_url= author.avatar_url, text= "Page 8")
     
     page9.add_field(name = "Custom Maps", value = custom_list, inline = True)
     page9.add_field(name = "Example of playing a Custom Map", value = "-geo urban-world-nobrr nm", inline = True)
+    page9.set_footer(icon_url= author.avatar_url, text= "Page 9")
 
 
-    help_pages = [page1, page2, page3, page4, page5, page6, page7, page9, page9]
+    help_pages = [page1, page2, page3, page4, page5, page6, page7, page8, page9]
     message = await ctx.send(embed = help_pages[page_count])
 
     for button in buttons:
@@ -136,9 +147,8 @@ async def optioninfo(ctx):
     options_list = (', '.join(sorted(filter(lambda i: i not in remove_char, options))))
     definitions_list = ('\n'.join(sorted(filter(lambda i: i not in remove_char, definitions))))
 
-    
     options_page = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
         title = "Options",
         description = "You can make a game with custom game rules that GeoGuessr has to offer."
     )
@@ -153,7 +163,7 @@ async def optioninfo(ctx):
 async def help_command(ctx):
     # a help command that gives instructions on how to use the bot on discord.
     help_page = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.orange(),
         title = "Help Page",
         description = "Welcome to the help page! Learn about all the commands for this bot below!"
     )
@@ -164,13 +174,14 @@ async def help_command(ctx):
     help_page.add_field(name = "-maps", value = "The -maps command will list all the available maps to play!", inline = False)
     help_page.add_field(name = "-options", value = "The -options command will list all the game rule options you can use!", inline= False)
     help_page.add_field(name = "-author", value = "Learn about who made this bot :)", inline= False)
+    help_page.set_footer(text = "\n\nIf the bot breaks, please contact senn#0526 or a moderator ASAP!")
     await ctx.send(embed = help_page)
 
 @client.command(aliases = ["author"])
 async def credits(ctx):
     # a command that tells the user of who made this bot.
     about = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.dark_red(),
         title = "Credits:",
         description = "This bot was made by #senn0526" 
     )
@@ -185,45 +196,79 @@ async def geo(ctx, arg1, arg2):
     user_map = arg1.lower()
     rule = arg2.lower()
 
+    generatelink_message = discord.Embed(
+        color = discord.Color.red(),
+    )
+    
     if user_map in maps and rule in options:
-        await ctx.send("Link is being generated for the map: " + user_map + " with the game rule: " + rule)
+
+        author = ctx.author
+        
+        generatelink_message.add_field(name = "Thanks for the request! Generating the GeoGuessr link now!", value = f"Map selected: {user_map}\nGame rule selected: {rule}", inline = False)
+        generatelink_message.set_footer(icon_url= author.avatar_url, text = f"Game requested by {author.display_name} ")
+        await ctx.send(embed = generatelink_message)
+        
         print("Game sent to generate")
+        
         game_link = game.map_generator(user_map, rule)
-        await ctx.send("Enjoy the game! Map: " + user_map + " , game rule: " + rule + "\n" + game_link)    
+        
+        game_message = discord.Embed(
+            color = discord.Color.green(),
+        )
+        game_message.add_field(name = "Enjoy the game!", value = f"Map selected: {user_map}\nGame rule selected: {rule}\n{game_link}", inline = False)
+        game_message.set_footer(icon_url= author.avatar_url, text = f"Game generated by {author.display_name}")
+        await ctx.send(embed = game_message)
         print("Game link sent")     
 
         if game_link == False:
-            await ctx.send("Something went wrong, please try again.") 
+            generatelink_message.add_field(name = "Uh oh!", value = "Something went wrong, please try again.", inline = False)
+            await ctx.send(embed = generatelink_message)
+            #await ctx.send("Something went wrong, please try again.") 
     else:
-        await ctx.send("Uh oh! Game link could not be generated based on your input. Reference -help for help!")
+        generatelink_message.add_field(name = "Uh oh!", value = "Game link could not be generated based on your input. Reference -help for help!", inline = False)
+        await ctx.send(embed = generatelink_message)
         ctx.command.reset_cooldown(ctx)
         print("Input was wrong")
 
 #Error Checking
 @client.event
 async def on_command_error(ctx,error):
+    
+    errorEmbed = discord.Embed(
+        color = discord.Color.red()
+    )
+
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send("Invalid command! Please check -help for all available GeoGuessr bot commands!")
+        errorEmbed.add_field(name = "Invalid command!", value = "Please check -help for all available GeoGuessr bot commands!", inline = False)
+        await ctx.send(embed = errorEmbed)
         print("Invalid command was sent")
 
     if isinstance(error, CommandOnCooldown):
-        await ctx.send(f"Slow down {ctx.message.author.display_name}! Bot is on cooldown. Use the bot in {error.retry_after:,.2f} seconds!")
+        author = ctx.author
+        errorEmbed.add_field(name = f"Slow down {ctx.message.author.display_name}!", value = f"Bot is on cooldown. Use the bot in {error.retry_after:,.2f} seconds!", inline = False)
+        errorEmbed.set_footer(icon_url = author.avatar_url, text = f"Just relax, {author.display_name} :)")
+        await ctx.send(embed = errorEmbed)
     
     else: 
         print(error)
     
-
 @geo.error
 async def geo_error(ctx, error):
+    errorEmbed = discord.Embed(
+        color = discord.Color.red()
+    )
+
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("You forgot to add a required option! Remember the format is -geo [map] [game rule]")
+        errorEmbed.add_field(name = "Start a GeoGuessr Game!", value = "Use this format to start a game! -geo [map] [game rule]. More information can be found with -help", inline = False )
+        await ctx.send(embed = errorEmbed)
         ctx.command.reset_cooldown(ctx)
     else: 
         print(error)
 
+def main():
+    game.login()
+    print("Game Installed")
+    client.run(TOKEN)
 
-
-game = GeoGuessorBot()
-game.login()
-print("Game Installed")
-client.run(TOKEN)
+if __name__ == "__main__":
+    main()

@@ -1,1 +1,1 @@
-worker: python geoguessrdiscordbot.py
+-worker: python geoguessrdiscordbot.py
