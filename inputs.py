@@ -1,5 +1,6 @@
 maps = {
     # Africa
+    "africa",
     "botswana",
     "eswatini",
     "ghana",
@@ -132,6 +133,7 @@ options = {
 }
 
 africa = {
+    "africa",
     "botswana",
     "eswatini",
     "ghana",
@@ -144,7 +146,6 @@ africa = {
     "sri-lanka",
     "tunisia",
     "uganda",
-    "vietnam",
 }
 
 asia = {
@@ -166,6 +167,7 @@ asia = {
     "south-korea",
     "taiwan",
     "thailand",
+    "vietnam",
 }
 
 europe = {
@@ -277,6 +279,9 @@ def checkCustom(map):
         return map
     if map == "diverse-world":
         map = "59a1514f17631e74145b6f47"
+        return map
+    if map == "africa":
+        map = "5f4a6c9d8c3ef000010a8fc2"
         return map
     else:
         return map
