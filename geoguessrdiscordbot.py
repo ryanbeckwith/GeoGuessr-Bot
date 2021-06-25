@@ -184,7 +184,7 @@ async def help_command(ctx):
     help_page.add_field(name = "-maps", value = "The -maps command will list all the available maps to play!", inline = False)
     help_page.add_field(name = "-options", value = "The -options command will list all the game rule options you can use!", inline= False)
     help_page.add_field(name = "-author", value = "Learn about who made this bot :)", inline= False)
-    help_page.set_footer(text = "\n\nIf the bot breaks, please contact senn#0526 or a moderator ASAP!")
+    help_page.set_footer(text = "\n\nPlease read -disclaimer!")
     await ctx.send(embed = help_page)
 
 @client.command(aliases = ["author"])
@@ -207,7 +207,7 @@ async def geo(ctx, arg1, arg2):
     rule = arg2.lower()
 
     generatelink_message = discord.Embed(
-        color = discord.Color.red(),
+        color = discord.Color.gold(),
     )
     
     if user_map in maps and rule in options:
@@ -231,11 +231,17 @@ async def geo(ctx, arg1, arg2):
         print("Game link sent")     
 
         if game_link == False:
-            generatelink_message.add_field(name = "Uh oh!", value = "Something went wrong, please try again.", inline = False)
+            bad_map  = discord.Embed(
+                color = discord.Color.red(),
+            )
+            bad_map.add_field(name = "Uh oh!", value = "Something went wrong, please try again.", inline = False)
             await ctx.send(embed = generatelink_message)
             #await ctx.send("Something went wrong, please try again.") 
     else:
-        generatelink_message.add_field(name = "Uh oh!", value = "Game link could not be generated based on your input. Reference -help for help!", inline = False)
+        bad_map  = discord.Embed(
+            color = discord.Color.red(),
+        )
+        bad_map.add_field(name = "Uh oh!", value = "Game link could not be generated based on your input. Reference -help for help!", inline = False)
         await ctx.send(embed = generatelink_message)
         ctx.command.reset_cooldown(ctx)
         print("Input was wrong")
