@@ -185,6 +185,25 @@ https://www.geoguessr.com/challenge/wYjPeOmTi2oDmZ7K
 This bot is still very much in development. If you have any suggestions or bug reports, please let me know!
 _______________________________________________________________________________
 
+## Release Version 0.2-alpha
+Version 0.2-alpha features the integration of the Discord API! This GeoGuessr bot can now be run as a discord bot!
+
+### Features:
++ New Discord integration!
++ Beautiful Discord commands.
++ Better error checking.
++ New official maps!
++ Heroku support.
+
+### Fixes
+* Fixed an error where the bot would crash after generating links for a certain period of time.
+* Fixed an error that would not generate the correct links based on user input since the game rule settings was displayed.
+
+### Feature Release Plans:
+* Add time game rule for GeoGuessr game link generation.
+* Add the ability to link game maps and create game links.
+* Add more Discord features.
+_______________________________________________________________________________
 ## Release Version 0.1-alpha
 
 ### Features
