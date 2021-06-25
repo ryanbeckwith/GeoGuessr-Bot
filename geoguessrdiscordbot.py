@@ -159,6 +159,16 @@ async def optioninfo(ctx):
 
     await ctx.send(embed = options_page)
 
+@client.command()
+async def disclaimer(ctx):
+    disclaimer_msg = discord.Embed(
+        color = discord.Color.blue(),
+        title = "Disclaimer",
+        description = "Please keep in mind that this bot is using the GeoGuessr.com website to generate links. If the developers of GeoGuessr.com change their website at anytime, this bot has a chance of breaking."
+    )
+    disclaimer_msg.set_footer(text = "If the bot breaks, please contact #senn0526. Let the server staff know the bot is not working as well.")
+    await ctx.send(embed = disclaimer_msg)
+
 @client.command(aliases = ["help"])
 async def help_command(ctx):
     # a help command that gives instructions on how to use the bot on discord.
