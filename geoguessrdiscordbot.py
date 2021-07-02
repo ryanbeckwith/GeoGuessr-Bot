@@ -184,6 +184,7 @@ async def help_command(ctx):
     help_page.add_field(name = "-geo", value = "The -geo command is how you can start a GeoGuessr game.\n Alternatively you can use -g or -game! \n -geo [map] [rule]" , inline = True)
     help_page.add_field(name = "Example of using the -geo command", value = "-geo usa nm \n -g usa nm \n -game usa nm", inline = True)
     help_page.add_field(name = "Note:" , value = "You must put in a map and game rule! See -maps and -options for more details. \n There is a 60 second cooldown for this command.", inline = True)
+    help_page.add_field(name = "-last", value = "The -last command will generate a GeoGuessr link with the last played map and game rule.", inline = False)
     help_page.add_field(name = "-maps", value = "The -maps command will list all the available maps to play!", inline = False)
     help_page.add_field(name = "-random", value = "The -random command will create a random GeoGuessr game with a random map and game rule!", inline = False)
     help_page.add_field(name = "-options", value = "The -options command will list all the game rule options you can use!", inline= False)
