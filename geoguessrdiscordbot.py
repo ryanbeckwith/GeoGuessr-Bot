@@ -189,7 +189,7 @@ async def help_command(ctx):
     help_page.add_field(name = "-maps", value = "The -maps command will list all the available maps to play!", inline = False)
     help_page.add_field(name = "-options", value = "The -options command will list all the game rule options you can use!", inline= False)
     help_page.add_field(name = "-author", value = "Learn about who made this bot :)", inline= False)
-    help_page.set_footer(icon_url = author.avatar_url, text = "\n\nPlease read -disclaimer!")
+    help_page.set_footer(icon_url = author.avatar_url, text = "\n\nPlease read -disclaimer")
     await ctx.send(embed = help_page)
 
 @client.command(aliases = ["author"])
