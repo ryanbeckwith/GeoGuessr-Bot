@@ -54,8 +54,6 @@ class GeoGuessorBot():
         # This function is called when the game setting is set to default by the user. 
         invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
         invite.click()
-        start = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@class='button button--medium button--primary margin--top']")))
-        start.click()
         time.sleep(5)
 
     def no_move(self):
@@ -64,8 +62,6 @@ class GeoGuessorBot():
         nmSelect.click()
         invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
         invite.click()
-        start = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@class='button button--medium button--primary margin--top']")))
-        start.click()
         time.sleep(5)    
     
     def no_zoom(self):
@@ -74,8 +70,6 @@ class GeoGuessorBot():
         nzSelect.click()
         invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
         invite.click()
-        start = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@class='button button--medium button--primary margin--top']")))
-        start.click()
         time.sleep(5)   
 
     def no_move_zoom(self):
@@ -84,8 +78,6 @@ class GeoGuessorBot():
         nzSelect.click()
         invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
         invite.click()
-        start = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@class='button button--medium button--primary margin--top']")))
-        start.click()
         time.sleep(5)
     
     def no_move_zoom_pan(self):
@@ -94,8 +86,6 @@ class GeoGuessorBot():
         nzSelect.click()   
         invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
         invite.click()
-        start = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@class='button button--medium button--primary margin--top']")))
-        start.click()
         time.sleep(5)
 
     def game_setting(self):
@@ -132,8 +122,7 @@ class GeoGuessorBot():
                     GeoGuessorBot.default(self)
                 else:
                     GeoGuessorBot.default(self)
-                link = self.driver.current_url
-                self.driver.get("https://www.geoguessr.com/")
+                link = self.driver.find_element_by_xpath("//input[@name='copy-link']").get_attribute('value')
                 return link
             elif option == "nm":
                 # Generates game link with the no move setting.
@@ -143,8 +132,7 @@ class GeoGuessorBot():
                     noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
                     noDefault.click()
                     GeoGuessorBot.no_move(self)
-                link = self.driver.current_url
-                self.driver.get("https://www.geoguessr.com/")
+                link = self.driver.find_element_by_xpath("//input[@name='copy-link']").get_attribute('value')
                 return link
             elif option == "nz":
                 # Generates game link with the no move zoom setting.
@@ -154,8 +142,7 @@ class GeoGuessorBot():
                     noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
                     noDefault.click()
                     GeoGuessorBot.no_zoom(self)
-                link = self.driver.current_url
-                self.driver.get("https://www.geoguessr.com/")
+                link = self.driver.find_element_by_xpath("//input[@name='copy-link']").get_attribute('value')
                 return link
             elif option == "nmz":
                 # Generates game link with the no move, no zoom setting.
@@ -165,8 +152,7 @@ class GeoGuessorBot():
                     noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
                     noDefault.click()
                     GeoGuessorBot.no_move_zoom(self)
-                link = self.driver.current_url
-                self.driver.get("https://www.geoguessr.com/")
+                link = self.driver.find_element_by_xpath("//input[@name='copy-link']").get_attribute('value')
                 return link
             elif option == "nmpz":
                 # Generates game link with the no move, no pan, no zoom setting.
@@ -176,8 +162,7 @@ class GeoGuessorBot():
                     noDefault = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//span[@class='checkbox__mark checkbox__mark--dark']")))
                     noDefault.click()
                     GeoGuessorBot.no_move_zoom_pan(self)
-                link = self.driver.current_url
-                self.driver.get("https://www.geoguessr.com/")
+                link = self.driver.find_element_by_xpath("//input[@name='copy-link']").get_attribute('value')
                 return link
 
 
