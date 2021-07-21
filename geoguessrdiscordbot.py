@@ -250,15 +250,15 @@ async def geo(ctx, arg1, arg2):
         await ctx.send(embed = game_message)
         print("Game link sent")     
         try:
-            sql_insert_query = """ INSERT INTO discord_servers (server_id, server_name, map_used, rule_used)
+            sql_insert_query = """ INSERT INTO discord_servers (server_id, server_name, map_used, rule_used, map_link)
                                                 VALUES 
-                                                (%s,%s,%s,%s) AS s
+                                                (%s,%s,%s,%s,%s) AS s
                                                 ON DUPLICATE KEY UPDATE
-                                                map_used = s.map_used, server_name = s.server_name, rule_used = s.rule_used;"""
-            map_played = (current_server_id, current_server_name, user_map, rule)
+                                                map_used = s.map_used, server_name = s.server_name, rule_used = s.rule_used, map_link = s.map_link;"""
+            map_played = (current_server_id, current_server_name, user_map, rule, game_link)
             cursor.execute(sql_insert_query, map_played)
             connection.commit()
-            print(f"The following was stored in the database successfully: Server: {current_server_name}, Map: {user_map}, Rule: {rule}")
+            print(f"The following was stored in the database successfully: Server: {current_server_name}, Map: {user_map}, Rule: {rule}, Game Link: {game_link}")
 
         except mysql.connector.Error as error:
             print("Uh oh. Something went wrong. {}".format(error))
