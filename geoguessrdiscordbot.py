@@ -355,6 +355,51 @@ async def last(ctx):
             cursor.close()
             connection.close()  
 
+@client.command(aliases = ["cg", "c"])
+async def current(ctx):
+
+    connection = mysql.connector.connect(host= db_host,
+                                         database= db_database,
+                                         user= db_user,
+                                         password = db_password,
+                                         port = 3306)
+
+    cursor = connection.cursor(prepared=True)
+
+    author = ctx.author
+    current_server_id = str(ctx.guild.id)
+    current_server_name = ctx.guild.name
+
+ 
+
+    generatelink_message = discord.Embed(
+        color = discord.Color.green(),
+    )
+
+    try:
+        sql_select_Query = f"SELECT map_used, rule_used, map_link from discord_servers WHERE server_id = {current_server_id};"
+        cursor = connection.cursor()
+        cursor.execute(sql_select_Query)
+        retrieve_last_map = cursor.fetchall()
+        for row in retrieve_last_map:
+            user_map = row[0]
+            rule = row[1]
+            last_link = row[2]
+        print(f"The following was retrieved from the database successfully: Server: {current_server_name}, Map: {user_map}, Rule: {rule}, Game link: {last_link}")
+
+        generatelink_message.add_field(name = "Here is the current map being played:", value = f"Current map: {user_map}\nGame rule selected: {rule}\n{last_link}", inline = False)
+        generatelink_message.set_footer(icon_url= author.avatar_url, text = f"Enjoy the game {author.display_name} ({author})! ")
+        await ctx.send(embed = generatelink_message)
+            
+        print("Game successfully retrieved")  
+
+    except mysql.connector.Error as error:
+        print("Uh oh. Something went wrong. {}".format(error))
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()  
+
 @client.command(aliases = ["r", "random", "ran"])
 @commands.cooldown(1,60, BucketType.guild)
 async def randomgame(ctx):
