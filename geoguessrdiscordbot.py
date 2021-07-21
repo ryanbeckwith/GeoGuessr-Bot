@@ -283,9 +283,9 @@ async def geo(ctx, arg1, arg2):
         ctx.command.reset_cooldown(ctx)
         print("Input was wrong")
 
-@client.command(aliases = ["latest"])
+@client.command(aliases = ["re"])
 @commands.cooldown(1,60, BucketType.guild)
-async def last(ctx):
+async def rematch(ctx):
 
     connection = mysql.connector.connect(host= db_host,
                                          database= db_database,
@@ -472,8 +472,8 @@ async def geo_error(ctx, error):
     else: 
         print(error)
 
-@last.error
-async def last_error(ctx,error):
+@rematch.error
+async def rematch_error(ctx,error):
     errorEmbed = discord.Embed(
         color = discord.Color.red()
     )
