@@ -502,6 +502,17 @@ async def rematch_error(ctx,error):
     else: 
         print(error)
 
+@current.error
+async def current_error(ctx,error):
+    errorEmbed = discord.Embed(
+        color = discord.Color.red()
+    )
+    if isinstance(error, commands.CommandInvokeError):
+        errorEmbed.add_field(name = "Uh oh!", value = "Looks like there is no current game. Start one with the -geo command!", inline = False )
+        await ctx.send(embed = errorEmbed)
+        ctx.command.reset_cooldown(ctx)
+    else: 
+        print(error)
 
 def main():
     game.login()
