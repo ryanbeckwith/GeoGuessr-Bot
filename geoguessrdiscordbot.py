@@ -380,7 +380,7 @@ async def current(ctx):
                                          database= db_database,
                                          user= db_user,
                                          password = db_password,
-                                         port = 3306)
+                                         port = db_port)
 
     cursor = connection.cursor(prepared=True)
 
