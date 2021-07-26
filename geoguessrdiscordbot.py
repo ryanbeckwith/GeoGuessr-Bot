@@ -21,7 +21,7 @@ db_user = environ['DB_USER']
 db_password = environ['DB_PASSWORD']
 db_port = environ['DB_PORT']
 
-client = commands.Bot(command_prefix = '-')
+client = commands.Bot(command_prefix = '-', case_insensitive=True)
 client.remove_command('help')
 game = GeoGuessorBot()
 
