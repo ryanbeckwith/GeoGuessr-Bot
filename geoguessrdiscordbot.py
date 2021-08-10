@@ -421,6 +421,69 @@ async def current(ctx):
             cursor.close()
             connection.close()  
 
+@client.command(aliases = ["b", "bm"])
+async def bookmark(ctx):
+
+    connection = mysql.connector.connect(host= db_host,
+                                         database= db_database,
+                                         user= db_user,
+                                         password = db_password,
+                                         port = db_port)
+
+    server_cursor = connection.cursor(prepared=True)
+    bookmark_cursor = connection.cursor(prepared=True)
+
+    author = ctx.author
+    current_server_id = str(ctx.guild.id)
+    current_server_name = ctx.guild.name
+    bookmark_author_id = str(ctx.author.id)
+    
+    generatelink_message = discord.Embed(
+        color = discord.Color.green(),
+    )
+
+    try:
+        sql_select_query = f"SELECT map_link from discord_servers WHERE server_id = {current_server_id};"
+        sql_insert_query = """ INSERT INTO bookmark (server_id, server_name, user_id, map_link)
+                                                VALUES 
+                                                (%s,%s,%s,%s) AS s
+                                                ON DUPLICATE KEY UPDATE
+                                                map_link = s.map_link;"""
+        sql_count_query = f"SELECT COUNT(map_link) FROM bookmark WHERE user_id = {bookmark_author_id}"
+        
+        server_cursor.execute(sql_select_query)
+        retrieve_last_map = server_cursor.fetchall()
+        for row in retrieve_last_map:
+            last_link = row[0]
+        print(f"The following was retrieved from the database successfully: Server: {current_server_name}, Game link: {last_link}")
+
+        bookmark_map = (current_server_id, current_server_name, bookmark_author_id, last_link)
+        bookmark_cursor.execute(sql_insert_query, bookmark_map)
+        print(f"Bookmark for {author}. The following was stored in the database successfully: Server: {current_server_name}, Server ID: {current_server_id}, User ID: {bookmark_author_id}, Game Link: {last_link}")
+
+        bookmark_cursor.execute(sql_count_query)
+        retrieve_count = bookmark_cursor.fetchall()
+        for row in retrieve_count:
+            bookmark_count = row[0]
+        print("Count was successfuly retrieved from the database")
+
+        connection.commit()
+        generatelink_message.add_field(name = "GeoGuessr Game Bookmarked!", value = f"You bookmarked the last GeoGuessr Game that was generated:\n{last_link}", inline = False)
+        if bookmark_count > 1:
+            generatelink_message.set_footer(icon_url= author.avatar_url, text = f"{author.display_name} ({author}), you have {bookmark_count} bookmarks stored! ")
+        else:
+            generatelink_message.set_footer(icon_url= author.avatar_url, text = f"{author.display_name} ({author}), you have {bookmark_count} bookmark stored! ")
+        await ctx.send(embed = generatelink_message)
+
+
+    except mysql.connector.Error as error:
+        print("Uh oh. Something went wrong. {}".format(error))
+    finally:
+        if connection.is_connected():
+            bookmark_cursor.close()
+            server_cursor.close()
+            connection.close()  
+
 @client.command(aliases = ["r", "random", "ran"])
 @commands.cooldown(1,60, BucketType.guild)
 async def randomgame(ctx):
