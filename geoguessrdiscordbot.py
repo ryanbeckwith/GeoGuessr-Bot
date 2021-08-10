@@ -310,9 +310,9 @@ async def rematch(ctx):
     )
 
     try:
-        sql_select_Query = f"SELECT map_used, rule_used from discord_servers WHERE server_id = {current_server_id};"
+        sql_select_query = f"SELECT map_used, rule_used from discord_servers WHERE server_id = {current_server_id};"
         cursor = connection.cursor()
-        cursor.execute(sql_select_Query)
+        cursor.execute(sql_select_query)
         retrieve_last_map = cursor.fetchall()
         for row in retrieve_last_map:
             user_map = row[0]
@@ -398,9 +398,9 @@ async def current(ctx):
     )
 
     try:
-        sql_select_Query = f"SELECT map_used, rule_used, map_link from discord_servers WHERE server_id = {current_server_id};"
+        sql_select_query = f"SELECT map_used, rule_used, map_link from discord_servers WHERE server_id = {current_server_id};"
         cursor = connection.cursor()
-        cursor.execute(sql_select_Query)
+        cursor.execute(sql_select_query)
         retrieve_last_map = cursor.fetchall()
         for row in retrieve_last_map:
             user_map = row[0]
