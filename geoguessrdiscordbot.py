@@ -539,6 +539,58 @@ async def saves(ctx):
             bookmark_cursor.close()
             connection.close()  
 
+@client.command(aliases = ["cl"])
+async def clear(ctx):
+
+    connection = mysql.connector.connect(host= db_host,
+                                         database= db_database,
+                                         user= db_user,
+                                         password = db_password,
+                                         port = db_port)
+
+    bookmark_cursor = connection.cursor(prepared=True)
+
+    author = ctx.author
+    current_server_id = str(ctx.guild.id)
+    bookmark_author_id = str(ctx.author.id)
+    
+    generatelink_message = discord.Embed(
+        color = discord.Color.green(),
+    )
+
+    try:
+        sql_count_query = f"SELECT COUNT(map_link) FROM bookmark WHERE user_id = {bookmark_author_id}"
+        sql_delete_query = f"DELETE FROM bookmark WHERE user_id = {bookmark_author_id} AND server_id = {current_server_id};"
+        bookmark_cursor.execute(sql_count_query)
+        retrieve_count = bookmark_cursor.fetchall()
+
+        for row in retrieve_count:
+            bookmark_count = row[0]
+        print("Count was retrieved successfuly")
+
+        if bookmark_count > 0:
+            bookmark_cursor.execute(sql_delete_query)
+            connection.commit()
+            print(f"{bookmark_count} were deleted from the database for user: {bookmark_author_id}")
+
+            if bookmark_count > 1:
+                generatelink_message.add_field(name = "Bookmarks cleared!", value = f"You successfully cleared {bookmark_count} bookmarks", inline = False)
+                generatelink_message.set_footer(icon_url= author.avatar_url, text = f"{author.display_name} ({author}), you have no bookmarks anymore.")
+            else:
+                generatelink_message.add_field(name = "Bookmarks cleared!", value = f"You successfully cleared {bookmark_count} bookmark", inline = False)
+                generatelink_message.set_footer(icon_url= author.avatar_url, text = f"{author.display_name} ({author}), you have no bookmarks anymore.")
+            await ctx.send(embed = generatelink_message)
+        else:
+            generatelink_message.add_field(name = "No Bookmarked Games!", value = "You have no bookmarked games!", inline = False)
+            generatelink_message.set_footer(icon_url= author.avatar_url, text = "To bookmark the latest GeoGuessr games, use -bookmark")
+            await ctx.send(embed = generatelink_message)
+    except mysql.connector.Error as error:
+        print("Uh oh. Something went wrong. {}".format(error))
+    finally:
+        if connection.is_connected():
+            bookmark_cursor.close()
+            connection.close()  
+
 @client.command(aliases = ["r", "random", "ran"])
 @commands.cooldown(1,60, BucketType.guild)
 async def randomgame(ctx):
