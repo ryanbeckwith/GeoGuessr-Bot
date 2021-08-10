@@ -687,6 +687,43 @@ async def current_error(ctx,error):
     else: 
         print(error)
 
+@bookmark.error
+async def bookmark_error(ctx,error):
+    errorEmbed = discord.Embed(
+        color = discord.Color.red()
+    )
+    if isinstance(error, commands.CommandInvokeError):
+        errorEmbed.add_field(name = "Uh oh!", value = "Something went wrong here, contact senn#0526.", inline = False )
+        await ctx.send(embed = errorEmbed)
+        ctx.command.reset_cooldown(ctx)
+    else: 
+        print(error)
+
+@saves.error
+async def saves(ctx,error):
+    errorEmbed = discord.Embed(
+        color = discord.Color.red()
+    )
+    if isinstance(error, commands.CommandInvokeError):
+        errorEmbed.add_field(name = "Uh oh!", value = "Something went wrong here, contact senn#0526.", inline = False )
+        await ctx.send(embed = errorEmbed)
+        ctx.command.reset_cooldown(ctx)
+    else: 
+        print(error)
+
+@clear.error
+async def clear(ctx,error):
+    errorEmbed = discord.Embed(
+        color = discord.Color.red()
+    )
+    if isinstance(error, commands.CommandInvokeError):
+        errorEmbed.add_field(name = "Uh oh!", value = "Something went wrong here, contact senn#0526.", inline = False )
+        await ctx.send(embed = errorEmbed)
+        ctx.command.reset_cooldown(ctx)
+    else: 
+        print(error)
+
+
 def main():
     game.login()
     print("Game Installed")
