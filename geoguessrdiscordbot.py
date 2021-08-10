@@ -449,7 +449,7 @@ async def bookmark(ctx):
                                                 (%s,%s,%s,%s) AS s
                                                 ON DUPLICATE KEY UPDATE
                                                 map_link = s.map_link;"""
-        sql_count_query = f"SELECT COUNT(map_link) FROM bookmark WHERE user_id = {bookmark_author_id}"
+        sql_count_query = f"SELECT COUNT(map_link) FROM bookmark WHERE user_id = {bookmark_author_id} and server_id = {current_server_id}"
         
         server_cursor.execute(sql_select_query)
         retrieve_last_map = server_cursor.fetchall()
@@ -505,7 +505,7 @@ async def saves(ctx):
     )
 
     try:
-        sql_count_query = f"SELECT COUNT(map_link) FROM bookmark WHERE user_id = {bookmark_author_id}"
+        sql_count_query = f"SELECT COUNT(map_link) FROM bookmark WHERE user_id = {bookmark_author_id} and server_id = {current_server_id}"
         sql_select_query = f"SELECT map_link from bookmark WHERE user_id = {bookmark_author_id} and server_id = {current_server_id};"
         bookmark_cursor.execute(sql_count_query)
         retrieve_count = bookmark_cursor.fetchall()
@@ -559,7 +559,7 @@ async def clear(ctx):
     )
 
     try:
-        sql_count_query = f"SELECT COUNT(map_link) FROM bookmark WHERE user_id = {bookmark_author_id}"
+        sql_count_query = f"SELECT COUNT(map_link) FROM bookmark WHERE user_id = {bookmark_author_id} and server_id = {current_server_id}"
         sql_delete_query = f"DELETE FROM bookmark WHERE user_id = {bookmark_author_id} AND server_id = {current_server_id};"
         bookmark_cursor.execute(sql_count_query)
         retrieve_count = bookmark_cursor.fetchall()
