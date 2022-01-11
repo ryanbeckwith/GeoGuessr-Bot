@@ -16,14 +16,22 @@ from selenium.common.exceptions import *
 from inputs import maps, options, checkCustom, checkMap, checkOptions
 import time, sys
 import os
-from os import environ
+from dotenv import load_dotenv
+import yagmail
+import smtplib, ssl
+
+load_dotenv()
 
 # Environment varible declarations
-GOOGLE_CHROME_PATH = environ['GOOGLE_CHROME_PATH']
-CHROMEDRIVER_PATH = environ['CHROMEDRIVER_PATH']
-USERNAME = environ['USERNAME']
-PASSWORD = environ['PASSWORD']
+CHROMEDRIVER_PATH = os.getenv('CHROMEDRIVER_PATH')
+GGUSERNAME = os.getenv('GGUSERNAME')
+GGPASSWORD = os.getenv('GGPASSWORD')
+GGEMAILTO = os.getenv('GGEMAILTO').split(",")
+GGEMAILFROM = os.getenv('GGEMAILFROM')
+GGEMAILFROMPASS = os.getenv('GGEMAILFROMPASS')
+INVITE_XPATH = "//button[@data-qa='invite-friends-button']"
 
+#https://realpython.com/python-send-email/
 class GeoGuessorBot():
     def __init__(self):
         # Initializes Chrome driver and browser functions
@@ -31,28 +39,32 @@ class GeoGuessorBot():
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')      
         chrome_options.add_argument('--disable-dev-shm-usage')
+        print(CHROMEDRIVER_PATH)
         self.driver = webdriver.Chrome(CHROMEDRIVER_PATH, options = chrome_options)
         self.wait = WebDriverWait(self.driver,20)
         print("Bot Initialized")
     
     def login(self):
         # Function for logging in GeoGuessrPro account.
-        self.driver.get("https://www.geoguessr.com/")
-        loginButton = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//a[normalize-space()='Log in']")))
-        loginButton.click()
+        # self.driver.get("https://accounts.google.com")
+        self.driver.get("https://www.geoguessr.com/signin")
         emailField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='email']")))
-        emailField.send_keys(USERNAME)
+        emailField.send_keys(GGUSERNAME)
         passField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='password']")))
-        passField.send_keys(PASSWORD)
-        enter = self.driver.find_element_by_xpath("//button[@type='submit']")
-        enter.click()
+        passField.send_keys(GGPASSWORD)
+        loginButton = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@data-qa='login-cta-button']")))
+        loginButton.click()
+        # loginButton = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='auth_googleLogo__wpShh']")))
+        # loginButton.click()
+        # enter = self.driver.find_element_by_xpath("//button[@type='submit']")
+        # enter.click()
 
         print("GeoGuessr login successful.")
         time.sleep(1)
     
     def default(self):
         # This function is called when the game setting is set to default by the user. 
-        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
+        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH, INVITE_XPATH)))
         invite.click()
         time.sleep(5)
 
@@ -60,7 +72,7 @@ class GeoGuessorBot():
         # This function is called when the game setting is set to no move by the user.
         nmSelect = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//label[normalize-space()='No move']")))
         nmSelect.click()
-        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
+        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH, INVITE_XPATH)))
         invite.click()
         time.sleep(5)    
     
@@ -68,7 +80,7 @@ class GeoGuessorBot():
         # This function is called when the game setting is set to no zoom by the user.
         nzSelect = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//label[normalize-space()='No zoom']")))
         nzSelect.click()
-        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
+        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH, INVITE_XPATH)))
         invite.click()
         time.sleep(5)   
 
@@ -76,7 +88,7 @@ class GeoGuessorBot():
         # This function is called when the game setting is set to no move, no zoom by the user.
         nzSelect = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//label[normalize-space()='No move, no zoom']")))
         nzSelect.click()
-        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
+        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH, INVITE_XPATH)))
         invite.click()
         time.sleep(5)
     
@@ -84,7 +96,7 @@ class GeoGuessorBot():
         # This function is called when the game setting is set to no move, no pan, no zoom by the user.
         nzSelect = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//label[normalize-space()='No move, no pan, no zoom']")))
         nzSelect.click()   
-        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH,"//button[@type='button']")))
+        invite = self.wait.until(EC.element_to_be_clickable((By.XPATH, INVITE_XPATH)))
         invite.click()
         time.sleep(5)
 
@@ -170,7 +182,9 @@ class GeoGuessorBot():
 def main():
     browser = GeoGuessorBot() #initiates GeoGuessrBot
     browser.login()
-    map,option = input("Enter the Map you want and rule: ").split() 
+    # map,option = input("Enter the Map you want and rule: ").split() 
+    map = "diverse-world"
+    option = "nm"
     geoguessrlink = browser.map_generator(map,option) # Generates link
     if geoguessrlink == False: # Checks if the game link was properly generated. If not, then error is sent to the user.
         print("Error Occured. Either the map or rule is incorrect. Please run program again.")
@@ -178,9 +192,21 @@ def main():
     else:
         print("Game link generated:") 
         print(geoguessrlink) #User receives the generated game link
-        exitKey = input("Press X to close program: ")
-        if exitKey == "x":
-            sys.exit()
+        print("Emailing to " + ", ".join(GGEMAILTO))
+        # # TODO: set up emailing
+        yag = yagmail.SMTP(GGEMAILFROM, GGEMAILFROMPASS)
+        yag.send(GGEMAILTO, "Daily Geoguessr Link", geoguessrlink)
+
+        # Create a secure SSL context
+        # context = ssl.create_default_context()
+
+        # with smtplib.SMTP_SSL("smtp.gmail.com", context=context) as server:
+        #     server.login(GGEMAILFROM, GGEMAILFROMPASS)
+        #     server.sendmail(GGEMAILFROM, GGEMAILTO, geoguessrlink)
+
+        # exitKey = input("Press X to close program: ")
+        # if exitKey == "x":
+        #     sys.exit()
 
 
 if __name__ == "__main__":
