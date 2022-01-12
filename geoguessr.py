@@ -7,18 +7,16 @@ Current Version: 0.2-alpha
 
 #imports
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import *
 from inputs import maps, options, checkCustom, checkMap, checkOptions
-import time, sys
+import time
 import os
 from dotenv import load_dotenv
 import yagmail
-import smtplib, ssl
 
 load_dotenv()
 
@@ -31,7 +29,6 @@ GGEMAILFROM = os.getenv('GGEMAILFROM')
 GGEMAILFROMPASS = os.getenv('GGEMAILFROMPASS')
 INVITE_XPATH = "//button[@data-qa='invite-friends-button']"
 
-#https://realpython.com/python-send-email/
 class GeoGuessorBot():
     def __init__(self):
         # Initializes Chrome driver and browser functions
@@ -45,8 +42,6 @@ class GeoGuessorBot():
         print("Bot Initialized")
     
     def login(self):
-        # Function for logging in GeoGuessrPro account.
-        # self.driver.get("https://accounts.google.com")
         self.driver.get("https://www.geoguessr.com/signin")
         emailField = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='email']")))
         emailField.send_keys(GGUSERNAME)
@@ -54,10 +49,6 @@ class GeoGuessorBot():
         passField.send_keys(GGPASSWORD)
         loginButton = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@data-qa='login-cta-button']")))
         loginButton.click()
-        # loginButton = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='auth_googleLogo__wpShh']")))
-        # loginButton.click()
-        # enter = self.driver.find_element_by_xpath("//button[@type='submit']")
-        # enter.click()
 
         print("GeoGuessr login successful.")
         time.sleep(1)
@@ -107,8 +98,7 @@ class GeoGuessorBot():
         except NoSuchElementException:
             return False
         return True
-
-    
+ 
     def map_generator(self, map, option):
         # Function for generating GeoGuessr game links
         map_checked = checkMap(map) # checks for a valid map
@@ -177,37 +167,17 @@ class GeoGuessorBot():
                 link = self.driver.find_element_by_xpath("//input[@name='copy-link']").get_attribute('value')
                 return link
 
-
-
 def main():
     browser = GeoGuessorBot() #initiates GeoGuessrBot
     browser.login()
-    # map,option = input("Enter the Map you want and rule: ").split() 
     map = "diverse-world"
-    option = "nm"
+    option = "default"
     geoguessrlink = browser.map_generator(map,option) # Generates link
-    if geoguessrlink == False: # Checks if the game link was properly generated. If not, then error is sent to the user.
-        print("Error Occured. Either the map or rule is incorrect. Please run program again.")
-        sys.exit()
-    else:
-        print("Game link generated:") 
-        print(geoguessrlink) #User receives the generated game link
-        print("Emailing to " + ", ".join(GGEMAILTO))
-        # # TODO: set up emailing
-        yag = yagmail.SMTP(GGEMAILFROM, GGEMAILFROMPASS)
-        yag.send(GGEMAILTO, "Daily Geoguessr Link", geoguessrlink)
-
-        # Create a secure SSL context
-        # context = ssl.create_default_context()
-
-        # with smtplib.SMTP_SSL("smtp.gmail.com", context=context) as server:
-        #     server.login(GGEMAILFROM, GGEMAILFROMPASS)
-        #     server.sendmail(GGEMAILFROM, GGEMAILTO, geoguessrlink)
-
-        # exitKey = input("Press X to close program: ")
-        # if exitKey == "x":
-        #     sys.exit()
-
+    print("Game link generated:") 
+    print(geoguessrlink) # User receives the generated game link
+    print("Emailing to " + ", ".join(GGEMAILTO))
+    yag = yagmail.SMTP(GGEMAILFROM, GGEMAILFROMPASS)
+    yag.send(GGEMAILTO, "Daily Geoguessr Link", geoguessrlink)
 
 if __name__ == "__main__":
     main()
